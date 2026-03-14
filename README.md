@@ -70,3 +70,6 @@ This project helped in understanding full-stack development by connecting fronte
 ## Author
 
 Hladhitha Konathala
+
+## Live demo
+https://hladhithakonathala.github.io/FUTURE_FS_02/
