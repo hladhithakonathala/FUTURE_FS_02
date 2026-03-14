@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Future CRM Dashboard</title>
+
+<style>
+
+body{
+font-family: Arial;
+background:#f4f6f9;
+margin:0;
+}
+
+header{
+background:#2c3e50;
+color:white;
+padding:15px;
+text-align:center;
+}
+
+.container{
+width:80%;
+margin:30px auto;
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+background:white;
+}
+
+th,td{
+padding:12px;
+border:1px solid #ddd;
+text-align:center;
+}
+
+th{
+background:#34495e;
+color:white;
+}
+
+.stats{
+display:flex;
+justify-content:space-between;
+margin-bottom:20px;
+}
+
+.card{
+background:white;
+padding:15px;
+border-radius:5px;
+width:23%;
+text-align:center;
+box-shadow:0 2px 5px rgba(0,0,0,0.1);
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+<h2>Client Lead Management System</h2>
+<p>Admin CRM Dashboard</p>
+</header>
+
+<div class="container">
+
+<div class="stats">
+
+<div class="card">
+<h3 id="total">0</h3>
+<p>Total Leads</p>
+</div>
+
+<div class="card">
+<h3 id="new">0</h3>
+<p>New</p>
+</div>
+
+<div class="card">
+<h3 id="contacted">0</h3>
+<p>Contacted</p>
+</div>
+
+<div class="card">
+<h3 id="converted">0</h3>
+<p>Converted</p>
+</div>
+
+</div>
+
+<table>
+
+<thead>
+<tr>
+<th>ID</th>
+<th>Name</th>
+<th>Email</th>
+<th>Status</th>
+</tr>
+</thead>
+
+<tbody id="leadTable"></tbody>
+
+</table>
+
+</div>
+
+<script>
+
+async function loadLeads(){
+
+const response = await fetch("http://localhost:3000/leads");
+const leads = await response.json();
+
+const table=document.getElementById("leadTable");
+
+let total=leads.length;
+let newCount=0;
+let contacted=0;
+let converted=0;
+
+leads.forEach(lead=>{
+
+if(lead.status==="new") newCount++;
+if(lead.status==="contacted") contacted++;
+if(lead.status==="converted") converted++;
+
+const row=`
+<tr>
+<td>${lead.id}</td>
+<td>${lead.name}</td>
+<td>${lead.email}</td>
+<td>${lead.status}</td>
+</tr>
+`;
+
+table.innerHTML+=row;
+
+});
+
+document.getElementById("total").innerText=total;
+document.getElementById("new").innerText=newCount;
+document.getElementById("contacted").innerText=contacted;
+document.getElementById("converted").innerText=converted;
+
+}
+
+loadLeads();
+
+</script>
+
+</body>
+</html>

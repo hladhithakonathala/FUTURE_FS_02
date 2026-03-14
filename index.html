@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Client Lead Form</title>
+
+<style>
+
+body{
+    font-family: Arial, sans-serif;
+    background:#f4f6f9;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+}
+
+.container{
+    background:white;
+    padding:30px;
+    border-radius:10px;
+    box-shadow:0 4px 15px rgba(0,0,0,0.1);
+    width:350px;
+}
+
+h2{
+    text-align:center;
+    margin-bottom:20px;
+}
+
+input, select{
+    width:100%;
+    padding:10px;
+    margin:10px 0;
+    border:1px solid #ccc;
+    border-radius:5px;
+}
+
+button{
+    width:100%;
+    padding:12px;
+    background:#007bff;
+    color:white;
+    border:none;
+    border-radius:5px;
+    font-size:16px;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#0056b3;
+}
+
+.success{
+    color:green;
+    text-align:center;
+    margin-top:10px;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>Client Lead Form</h2>
+
+<input id="name" placeholder="Full Name">
+
+<input id="email" placeholder="Email Address">
+
+<select id="status">
+<option value="New">New Lead</option>
+<option value="Contacted">Contacted</option>
+<option value="Converted">Converted</option>
+</select>
+
+<button onclick="addLead()">Add Lead</button>
+
+<p class="success" id="msg"></p>
+
+</div>
+
+<script>
+
+async function addLead(){
+
+const name = document.getElementById("name").value
+const email = document.getElementById("email").value
+const status = document.getElementById("status").value
+
+const res = await fetch("http://localhost:3000/add-lead",{
+method:"POST",
+headers:{"Content-Type":"application/json"},
+body:JSON.stringify({name,email,status})
+})
+
+const data = await res.json()
+
+document.getElementById("msg").innerText = data.message
+
+}
+
+</script>
+
+</body>
+</html>
