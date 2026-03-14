@@ -69,4 +69,4 @@ This project helped in understanding full-stack development by connecting fronte
 
 ## Author
 
-Hladhitha Konthala
+Hladhitha Konathala
